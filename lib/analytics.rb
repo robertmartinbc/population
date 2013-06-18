@@ -1,7 +1,7 @@
 class Analytics
   attr_accessor :options
 
-  def initilaize(areas)
+  def initialize(areas)
     @areas = areas
     set_options
   end
