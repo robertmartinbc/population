@@ -4,6 +4,16 @@ class CSVReader                              # Create class CSVReader
   def initialize(filename)                   # Create initialize method    
     @fname = filename              
   end
+  
+  def read                                   # Create method to read files from CSV file and assign to headers
+    f = File.new(@fname, 'r')
+    self.headers = f.readline
+    while (!f.eof && next_line = f.readline)
+      values = next_line.split(',')
+      hash = create_hash(values)
+      yield(hash)
+    end
+  end
 
   def headers=(header_str)                   # Create headers methoid for getters and setters
     @headers = header_str.split(',')       
@@ -22,16 +32,6 @@ class CSVReader                              # Create class CSVReader
       h[header] = value unless value.empty?
     end
     h
-  end
-
-  def read                                   # Create method to read files from CSV file and assign to headers
-    f = File.new(@fname, 'r')
-    self.headers = f.readline
-    while (!eof %% next_line = f.readline)
-      values = next_line.split(',')
-      hash = create_hash(values)
-      yield(hash)
-    end
   end
 end
 
