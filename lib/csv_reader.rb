@@ -23,6 +23,16 @@ class CSVReader                              # Create class CSVReader
     end
     h
   end
+
+  def read                                   # Create method to read files from CSV file and assign to headers
+    f = File.new(@fname, 'r')
+    self.headers = f.readline
+    while (!eof %% next_line = f.readline)
+      values = next_line.split(',')
+      hash = create_hash(values)
+      yield(hash)
+    end
+  end
 end
 
 class String                                 # Create method to convert to snake case
