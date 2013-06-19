@@ -13,7 +13,8 @@ class Analytics
     @options << { menu_id: 3, menu_title: 'Largest Population', method: :largest_pop }
     @options << { menu_id: 4, menu_title: 'How many zips in California?', method: :california_zips }
     @options << { menu_id: 5, menu_title: 'Information for a given endzip.', method: :zip_info }
-    @options << { menu_id: 6, menu_title: 'Exit', method: :exit }
+    @options << { menu_id: 6, menu_title: 'All zips with Population of 0', method: :pop_of_zero }
+    @options << { menu_id: 7, menu_title: 'Exit', method: :exit }
   end
 
   def run(choice)
@@ -64,5 +65,15 @@ class Analytics
     else
       puts "Zip not found"
     end
+  end
+
+  def pop_of_zero
+    cities = []
+    @areas.each do |area|
+      if area.estimated_population == 0
+        cities << area
+      end
+    end
+    puts cities
   end
 end
